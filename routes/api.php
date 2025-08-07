@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ApplyServiceController;
 use App\Http\Controllers\SoloProviderController;
 use App\Http\Controllers\PasswordResetController;
@@ -15,6 +16,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink']);
 Route::post('/reset-password', [PasswordResetController::class, 'reset']);
+Route::middleware('auth:sanctum')->get('/profile', [ProfileController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -43,5 +45,6 @@ Route::middleware(['auth:sanctum', 'roletype:seeker,company'])
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/jobs', [JobController::class, 'store']);
 });
+
 
 

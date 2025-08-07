@@ -26,6 +26,7 @@ class ApplyServiceTest extends TestCase
         $response = $this->postJson("/api/jobs/{$job->id}/apply", [
             'answers' => ['Yes', 'I have 2 years experience.', 'Available full-time.']
         ]);
+        dd($response->getContent());
 
         $response->assertStatus(201)
                  ->assertJson(['message' => 'Application submitted successfully.']);
@@ -34,6 +35,7 @@ class ApplyServiceTest extends TestCase
             'user_id' => $provider->id,
             'job_id' => $job->id,
         ]);
+        dd($response->json());
     }
 
     public function test_seeker_cannot_apply_to_job()

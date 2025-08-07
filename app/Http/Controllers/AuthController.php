@@ -107,11 +107,23 @@ public function login(Request $request)
     }
 
     $token = $user->createToken('authToken')->plainTextToken;
+     $profile = null;
+        if ($user->account_type === 'solo') {
+            $profile = $user->solo;
+        } elseif ($user->account_type === 'company') {
+            $profile = $user->company;
+        }
 
-    return response()->json([
-        'token' => $token,
-        'user' => $user
-    ]);
+        return response()->json([
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'email' => $user->email,
+                'user_role' => $user->user_role,
+                'account_type' => $user->account_type,
+            ],
+            'profile' => $profile
+        ]);
 }
 
 

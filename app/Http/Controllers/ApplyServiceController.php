@@ -26,12 +26,16 @@ class ApplyServiceController extends Controller
             'answers' => 'required|array|min:1',
         ]);
 
-        ApplyService::create([
+         $application =ApplyService::create([
             'user_id' => $user->id,
             'job_id' => $job->id,
             'answers' => $request->answers,
         ]);
 
-        return response()->json(['message' => 'Application submitted successfully.'], 201);
+         return response()->json([
+        'message' => 'Application submitted successfully.',
+        'application' => $application,
+    ], 201);
+
     }
 }

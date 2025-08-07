@@ -32,7 +32,6 @@ class AuthApiTest extends TestCase
             'preferred_work_nature' => 'full-time',
             'skills' => 'Laravel'
         ]);
-
         $response->assertStatus(200)
                  ->assertJson(['message' => 'Verification code sent.']);
     }
@@ -127,5 +126,7 @@ class AuthApiTest extends TestCase
 
         $response->assertStatus(200)
                  ->assertJsonStructure(['token', 'user']);
+
     }
+
 }
